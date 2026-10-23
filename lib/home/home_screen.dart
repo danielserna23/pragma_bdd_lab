@@ -14,31 +14,32 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Inicio'),
         automaticallyImplyLeading: false,
       ),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Semantics(
-              identifier: TestIds.welcomeText,
-              child: Text(
-                '¡Hola, $email!',
-                key: const Key(TestIds.welcomeText),
-                style: Theme.of(context).textTheme.headlineSmall,
+      body: ListView.builder(
+        key: Key(TestIds.homeListView),
+        itemCount: 51,
+        itemBuilder: (context, index) {
+          if (index == 50) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: Center(
+                child: Semantics(
+                  identifier: TestIds.logoutButton,
+                  child: ElevatedButton(
+                    key: const Key(TestIds.logoutButton),
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('Cerrar sesión'),
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(height: 24),
-            // Cerrar sesión devuelve al login: así cada escenario de
-            // SuuprTests (que no reinicia la app) deja el estado limpio.
-            Semantics(
-              identifier: TestIds.logoutButton,
-              child: ElevatedButton(
-                key: const Key(TestIds.logoutButton),
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Cerrar sesión'),
-              ),
-            ),
-          ],
-        ),
+            );
+          }
+
+          final position = index + 1;
+          return ListTile(
+            key: Key('${TestIds.itemList}$position'),
+            title: Text('${TestIds.itemList}$position'),
+          );
+        },
       ),
     );
   }
