@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Iniciar sesión')),
+      appBar: AppBar(title: const Text( key: Key(TestIds.titleLogin),'Iniciar sesión')),
       body: SafeArea(
         child: ListenableBuilder(
           listenable: _controller,
